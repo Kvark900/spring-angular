@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  // private _authenticated = false;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -37,11 +36,11 @@ export class AuthService {
       });
   }
 
-  public isAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     return 'loggedInUser' in localStorage;
   }
 
-  public getLoggedInUsersInformation() {
+  getLoggedInUsersInformation() {
     return localStorage.getItem('loggedInUser');
   }
 
