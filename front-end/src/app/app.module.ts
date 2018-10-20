@@ -11,12 +11,14 @@ import {ContentComponent} from './content/content.component';
 import {HomeComponent} from './content/home/home.component';
 import {FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import { AdminComponent } from './content/admin/admin.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'admin', component: AdminComponent}
 ];
 
 
@@ -38,7 +40,8 @@ export class XhrInterceptor implements HttpInterceptor {
     LoginComponent,
     RegisterComponent,
     ContentComponent,
-    HomeComponent
+    HomeComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

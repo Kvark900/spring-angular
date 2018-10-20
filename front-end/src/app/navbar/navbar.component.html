@@ -88,12 +88,12 @@
 
       <!--region For ROLE_ADMIN display admin page-->
       <!--================================================================================================-->
-      <!--<li class="nav-item d-flex">
+      <li class="nav-item d-flex" *ngIf="isAdmin()">
         <i class="align-self-center fas fa-user-cog" style="color: white;"></i>
-        <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/adminPage}" href="/adminPage">
+        <a class="nav-link"  routerLinkActive="active" routerLink="/admin">
           Admin Page
         </a>
-      </li>-->
+      </li>
       <!--================================================================================================-->
       <!--endregion-->
 
