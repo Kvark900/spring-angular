@@ -11,14 +11,22 @@ import {ContentComponent} from './content/content.component';
 import {HomeComponent} from './content/home/home.component';
 import {FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import { AdminComponent } from './content/admin/admin.component';
+import {AdminComponent} from './content/admin/admin.component';
+import {UsersComponent} from './content/admin/users/users.component';
+import {RolesComponent} from './content/admin/roles/roles.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'admin', component: AdminComponent}
+  {
+    path: 'admin', component: AdminComponent,
+    children: [
+      {path: 'users', component: UsersComponent},
+      {path: 'roles', component: RolesComponent}
+    ]
+  }
 ];
 
 
@@ -41,7 +49,9 @@ export class XhrInterceptor implements HttpInterceptor {
     RegisterComponent,
     ContentComponent,
     HomeComponent,
-    AdminComponent
+    AdminComponent,
+    UsersComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +62,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ),
     FormsModule
   ],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AuthService, {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

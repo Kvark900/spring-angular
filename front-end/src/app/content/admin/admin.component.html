@@ -1,3 +1,39 @@
-<p>
-  admin works!
-</p>
+<div id="admin-section">
+  <div class="admin-inner">
+    <div class="container">
+      <div class="d-flex flex-row">
+        <div id="admin-sidebar">
+          <aside id="admin-nav">
+            <nav class="navbar navbar-dark bg-dark">
+              <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link"
+                     routerLinkActive="acitve"
+                     routerLink="/admin/users">Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link"
+                     routerLinkActive="acitve"
+                     routerLink="/admin/roles">Roles</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link"
+                     href="#!">Topics</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link"
+                     href="#!">Courses</a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        </div>
+        <div id="admin-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
