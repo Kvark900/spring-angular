@@ -23,6 +23,7 @@ const appRoutes: Routes = [
   {
     path: 'admin', component: AdminComponent,
     children: [
+      {path: '', redirectTo: 'users', pathMatch: 'full'},
       {path: 'users', component: UsersComponent},
       {path: 'roles', component: RolesComponent}
     ]
