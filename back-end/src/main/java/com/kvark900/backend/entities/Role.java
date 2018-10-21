@@ -1,5 +1,6 @@
 package com.kvark900.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-//    @JsonManagedReference
+    @JsonManagedReference
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE)
     private Set<User> users = new HashSet<>();
 

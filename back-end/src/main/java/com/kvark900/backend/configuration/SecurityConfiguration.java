@@ -50,12 +50,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .httpBasic().and()
                 .authorizeRequests()
+                .antMatchers("/admin/users/**").hasRole("ADMIN")
+                .antMatchers("/admin/roles/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .csrf()
                 .ignoringAntMatchers("/login", "/logout")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-
     }
 
 }

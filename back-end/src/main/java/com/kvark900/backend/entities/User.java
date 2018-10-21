@@ -1,5 +1,6 @@
 package com.kvark900.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class User {
 
     private boolean enabled;
 
-//    @JsonBackReference
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
