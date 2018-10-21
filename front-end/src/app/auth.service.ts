@@ -21,6 +21,7 @@ export class AuthService {
       if (user) {
         // store user details in local storage to keep user logged in between page refreshes
         localStorage.setItem('loggedInUser', JSON.stringify(user));
+        localStorage.setItem('header', JSON.stringify(headers.get('authorization')));
       }
       return callback && callback();
     });
@@ -29,10 +30,11 @@ export class AuthService {
   logOut() {
     return this.http.post(AppConstants.API_URL + '/logout', {}).subscribe(response => {
         localStorage.removeItem('loggedInUser');
+        localStorage.removeItem('header');
         this.router.navigate(['/login']);
       },
       error => {
-        console.log('Error occurred when logging out'  + error);
+        console.log('Error occurred when logging out' + error);
       });
   }
 
@@ -42,6 +44,11 @@ export class AuthService {
 
   getLoggedInUsersInformation() {
     return localStorage.getItem('loggedInUser');
+  }
+
+  getHeaders() {
+    const header = JSON.parse(localStorage.getItem('header'));
+    return new HttpHeaders({authorization: header});
   }
 
 
