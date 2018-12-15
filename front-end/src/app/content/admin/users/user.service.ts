@@ -10,12 +10,7 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  users: any;
-
   getUsers() {
-    this.http.get(AppConstants.API_URL + '/admin/users', {headers: this.authService.getHeaders()}).
-    subscribe(response => {
-      this.users = response;
-    });
+    return this.http.get(AppConstants.API_URL + '/admin/users', {headers: this.authService.getHeaders()});
   }
 }

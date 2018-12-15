@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AppConstants} from '../../../appConstants';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
 
@@ -10,14 +9,13 @@ import {UserService} from './user.service';
 })
 export class UsersComponent implements OnInit {
 
+  users;
+
   constructor(private http: HttpClient, private userService: UserService) {
   }
 
-  users = this.userService.users;
-
   ngOnInit() {
-    this.userService.getUsers();
+    this.userService.getUsers().subscribe(response => this.users = response);
   }
-
 
 }
