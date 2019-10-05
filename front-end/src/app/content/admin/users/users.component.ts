@@ -9,13 +9,18 @@ import {UserService} from './user.service';
 })
 export class UsersComponent implements OnInit {
 
-  users;
+  users; // PageRequest
+  currentPage = 1;
+  pageSize = 20;
 
   constructor(private http: HttpClient, private userService: UserService) {
   }
 
-  ngOnInit() {
-    this.userService.getUsers().subscribe(response => this.users = response);
+  ngOnInit(): void {
+    this.userService.getUsersPageable(--this.currentPage, this.pageSize).subscribe(response => this.users = response);
   }
 
+  onPageChange(currentPage: number): void {
+    this.userService.getUsersPageable(--currentPage, this.pageSize).subscribe(response => this.users = response);
+  }
 }

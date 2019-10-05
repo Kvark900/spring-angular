@@ -10,7 +10,7 @@
       true,
       "check-space"
     ],
-    "curly": true,
+    "curly": [true, "as-needed"],
     "deprecation": {
       "severity": "warn"
     },
@@ -76,7 +76,7 @@
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "one-line": [
-      true,
+      false,
       "check-open-brace",
       "check-catch",
       "check-else",
@@ -96,8 +96,8 @@
       true,
       "allow-null-check"
     ],
-    "typedef-whitespace": [
-      true,
+    /*"typedef-whitespace": [
+      false,
       {
         "call-signature": "nospace",
         "index-signature": "nospace",
@@ -105,17 +105,17 @@
         "property-declaration": "nospace",
         "variable-declaration": "nospace"
       }
-    ],
+    ],*/
     "unified-signatures": true,
     "variable-name": false,
-    "whitespace": [
-      true,
+    /*"whitespace": [
+      false,
       "check-branch",
       "check-decl",
       "check-operator",
       "check-separator",
       "check-type"
-    ],
+    ],*/
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,

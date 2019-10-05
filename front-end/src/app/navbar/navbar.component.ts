@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../auth.service';
-import {element} from 'protractor';
+import {RoleEnum} from '../roleEnum';
 
 @Component({
   selector: 'app-navbar',
@@ -10,40 +10,29 @@ import {element} from 'protractor';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authService: AuthService, private http: HttpClient) {
+  constructor(private authService: AuthService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  roleChecker(role: string) {
-    const authorities = this.getLoggedInUsersInformation().principal.authorities;
-    for (let i = 0; i < authorities.length; i++) {
-      if (authorities[i].authority === role) {
-        return true;
-      }
-    }
-
-    return false;
+  isAdmin(): boolean {
+    return this.authService.hasRole(RoleEnum.ROLE_ADMIN);
   }
 
-  isAdmin() {
-    return this.roleChecker('ROLE_ADMIN');
+  hasRoleUser(): boolean {
+    return this.authService.hasRole(RoleEnum.ROLE_USER);
   }
 
-  hasRoleUser() {
-    return this.roleChecker('ROLE_USER');
-  }
-
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
-  }
-
-  logOut() {
-    this.authService.logOut();
   }
 
   getLoggedInUsersInformation() {
     return JSON.parse(this.authService.getLoggedInUsersInformation());
+  }
+
+  logOut(): void {
+    this.authService.logOut();
   }
 }

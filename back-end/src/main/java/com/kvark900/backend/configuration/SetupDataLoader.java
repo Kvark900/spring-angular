@@ -17,17 +17,12 @@ import java.util.List;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
-
-    private boolean alreadySetup = false;
-
+    private boolean alreadySetup;
     private UserService userService;
-
     private RoleService roleService;
-
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public SetupDataLoader(UserService userService, RoleService roleService, BCryptPasswordEncoder
-            bCryptPasswordEncoder) {
+    public SetupDataLoader(UserService userService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -36,38 +31,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-        if (alreadySetup) {
-            return;
-        }
-
-        //region Creating roles
-        //================================================================================
+        if (alreadySetup) return;
         Role roleAdmin = createRoleIfNotFound("ROLE_ADMIN");
         Role roleUser = createRoleIfNotFound("ROLE_USER");
-
         List<Role> adminRoles = Collections.singletonList(roleAdmin);
         List<Role> userRoles = Collections.singletonList(roleUser);
-        //================================================================================
-        //endregion
-
-
-        //region Creating users
-        //================================================================================
-        createUserIfNotFound("admin@gmail.com", "Admin", "Admin",
-                "admin", "admin", adminRoles);
-
-        for (int i = 1; i < 50; i++) {
-            createUserIfNotFound("user" + i + "@gmail.com", "User" + i,
-                    "User" + i, "user" + i, "user" + i, userRoles);
-        }
-        //================================================================================
-        //endregion
-
+        createUserIfNotFound("admin@gmail.com", "Admin", "Admin", "admin", "admin", adminRoles);
+        crateDummyUsers(userRoles);
         alreadySetup = true;
     }
 
-    @Transactional
-    private final Role createRoleIfNotFound(final String name) {
+    private void crateDummyUsers(List<Role> userRoles) {
+        for (int i = 1; i < 50; i++)
+            createUserIfNotFound("user" + i + "@gmail.com", "User" + i, "User" + i, "user" + i, "user" + i, userRoles);
+    }
+
+    private Role createRoleIfNotFound(final String name) {
         Role role = roleService.findByName(name);
         if (role == null) {
             role = new Role(name);
@@ -76,10 +55,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return role;
     }
 
-    @Transactional
-    private final void createUserIfNotFound(final String email, String name,
-                                            String surname, String username,
-                                            String password, List<Role> userRoles) {
+    private void createUserIfNotFound(final String email, String name,
+                                      String surname, String username,
+                                      String password, List<Role> userRoles) {
         User user = userService.findByEmailEagerly(email);
         if (user == null) {
             user = new User();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {
   }
 
-  login() {
+  login(): boolean {
     this.authService.authenticate(this.credentials, () => {
       this.router.navigateByUrl('/');
     });

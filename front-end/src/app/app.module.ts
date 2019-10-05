@@ -1,19 +1,21 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {Injectable, NgModule} from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {AuthService} from './auth.service';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './content/login/login.component';
+import {LoginComponent} from './content/authentication/login.component';
 import {RegisterComponent} from './content/register/register.component';
 import {ContentComponent} from './content/content.component';
 import {HomeComponent} from './content/home/home.component';
 import {FormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {AdminComponent} from './content/admin/admin.component';
 import {UsersComponent} from './content/admin/users/users.component';
 import {RolesComponent} from './content/admin/roles/roles.component';
+import {Observable} from 'rxjs';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -34,8 +36,8 @@ const appRoutes: Routes = [
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const xhr = req.clone({
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const xhr: HttpRequest<any> = req.clone({
       headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
     });
     return next.handle(xhr);
@@ -61,7 +63,8 @@ export class XhrInterceptor implements HttpInterceptor {
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
     ),
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [AuthService, {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
   bootstrap: [AppComponent]
